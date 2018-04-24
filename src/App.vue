@@ -27,13 +27,14 @@ export default {
       require('brace/theme/solarized_dark')
     },
     newEval: code => {
-      const wrappedCode=(`
-      var _log = '';
-      var _olog = console.log;
+      const wrappedCode = (`
+      var _log = ''; var _olog = console.log;
       console.log = function () {
+        if(_log){
+          _log += '\\n';
+        }
         _olog.apply(null, arguments);
         _log += Array.from(arguments).map(JSON.stringify).join(', ');
-        _log += '\\n';
       };
       ${code}; 
       _log;`)
