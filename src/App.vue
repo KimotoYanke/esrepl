@@ -6,11 +6,19 @@
 </template>
 
 <script>
+const code = (() => {
+  if (location.hash.length > 1) {
+    return decodeURI(location.hash.slice(1))
+  } else {
+    return `console.log("Hello, world")`
+  }
+})()
+
 export default {
   name: 'app',
   data () {
     return {
-      code: `console.log("Hello, world")`,
+      code
     }
   },
   methods: {
